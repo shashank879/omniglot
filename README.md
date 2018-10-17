@@ -1,11 +1,11 @@
 # Model for one-shot learning tested on Omniglot dataset
 
-*Please refer to the original Omniglot repository https://github.com/brendenlake/omniglot for explanation on how to unzip the data in apppriate repositories.*
+*Please refer to the original Omniglot repository https://github.com/brendenlake/omniglot for an explanation on how to unzip the data in appropriate repositories.*
 
 ### Pretrained model
 Download the pretrained model from this [link](https://drive.google.com/open?id=1nj7CEVWcgHDRAfw6BY3AabUo49AOv4Ap). Unzip the contents in the folder *python/one-shot-classification/AE_classifier/*.
 
-After this the model can be loaded as,
+After this, the model can be loaded as,
 
 ```python
 from ae_classifier import AE_classifier
