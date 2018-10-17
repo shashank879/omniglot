@@ -53,6 +53,7 @@ class AE_classifier():
         config.gpu_options.per_process_gpu_memory_fraction = 0.3
         config.gpu_options.allow_growth = True
         self.sess = tf.Session(graph=self.graph, config=config)
+
         # Build the tensorflow graph
         self.build()
         print('Run id:', self.run_id)
@@ -88,7 +89,7 @@ class AE_classifier():
                 reuse (boolean): Defines if the graph variables are to be reused
         """
         with tf.variable_scope('graph', reuse=reuse):
-            # Options for regularizers. It was found 
+            # Options for regularizers (Using no regularizer here)
             norm_fn = None
             norm_params = {}
             # norm_fn = tf.contrib.layers.batch_norm
@@ -141,7 +142,7 @@ class AE_classifier():
                 d3 = ops.resnet_block_transpose(d2, 1, kernel_size=3, stride=2, activation_fn=None, scope='d3')
                 print(d3.name, d3.get_shape())
 
-            # Classifier that outputs logits over the number of classes.
+            ## Classifier that outputs logits over the number of classes.
             with tf.variable_scope('classifier'):
                 n = 8 * self.dims * 3 * 16
                 h0 = tf.reshape(c3, shape=[-1, n], name='h0')
@@ -212,7 +213,6 @@ class AE_classifier():
             self.opt = tf.train.RMSPropOptimizer(learning_rate=1e-4).minimize(self.recons_loss + self.cl_loss, var_list=recons_vars + cl_vars)
             self.saver = tf.train.Saver(max_to_keep=1)
             self.init_op = tf.global_variables_initializer()
-            # self.init_op = tf.group(tf.global_variables_initializer(), validation_metrics_init_op)
             self.summ_op = tf.summary.merge_all()
 
     def train(self, images, labels):
@@ -236,7 +236,7 @@ class AE_classifier():
         n_batches = int(math.ceil(len(images) / float(self.batch_size)))
         print('Starting train loop...\n')
         for epoch in range(self.epochs):
-            ## Shuffle data before each epochs
+            ## Shuffle data before each epoch
             images, labels = shuffle(images, labels)
             epoch_st_time = time.time()
             for i in range(n_batches):
@@ -283,7 +283,7 @@ class AE_classifier():
 
 
 def read_data(folder_path):
-    """ Function that reads the images recursively in the directory (omniglot data directory structure only). And uses folder path as the image label
+    """ Function that reads the images recursively in the folder (omniglot data directory structure only). And uses folder path as the image label
         Args:
             folder_path (string): Path to the data folder
         Returns:
