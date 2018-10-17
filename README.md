@@ -1,6 +1,6 @@
 # Model for one-shot learning tested on Omniglot dataset
 
-*Please refer to the original Omniglot repository https://github.com/brendenlake/omniglot for an explanation on how to unzip the data in appropriate repositories.*
+*Please refer to the original Omniglot repository https://github.com/brendenlake/omniglot for an explanation on how to unzip the data in appropriate folders.*
 
 The jupyter notebook that explores the results of this model and explains some specifics about it, can be found at [python/one-shot-classification/omniglot.ipynb](https://github.com/shashank879/omniglot/blob/master/python/one-shot-classification/omniglot.ipynb)
 
@@ -10,8 +10,9 @@ Download the pretrained model from this [link](https://drive.google.com/open?id=
 After this, the model can be loaded as,
 
 ```python
-from ae_classifier import AE_classifier
+from ae_classifier import AE_classifier, read_data
 
+images, labels, classes = read_data('../images_background')
 ae_cl = AE_classifier(classes, name='default')
 ae_cl.load()
 ```
