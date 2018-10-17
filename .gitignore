@@ -6,3 +6,6 @@ python/images_evaluation
 python/one-shot-classification/run**
 
 *.pyc
+.ipynb_checkpoints/
+saves/
+logs/
